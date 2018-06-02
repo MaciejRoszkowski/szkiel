@@ -1,0 +1,15 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+To jst lista naszych najlepszych blogow
+{% if latest_blog_list %}
+<div class="list-group">
+    {% for blog in latest_blog_list %}
+        <a href="/mainapp/{{ blog.id }}/" class="list-group-item">{{ blog.Name}}</a>
+    {% endfor %}
+</div>
+{% else %}
+    <p>No blogs are available.</p>
+{% endif %}
+{% endblock %}
+

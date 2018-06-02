@@ -1,0 +1,24 @@
+{% extends 'mainapp/base.html' %}
+
+
+{% block content %}
+
+<h2>{{blog.Name}}</h2>
+{% load static %}
+<img src="{% static "main/debil.jpg" %}" width="300" height="400" alt="My image"/>
+{% if post %}
+    <ul>
+    {% for po in post %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{po.title}}</div>
+             <div class="panel-body">{{po.text}}</div>
+        </div>
+
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No blogs are available.</p>
+{% endif %}
+
+{% endblock %}
