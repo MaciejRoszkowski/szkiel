@@ -1,0 +1,26 @@
+{% extends 'mainapp/base.html' %}
+
+
+{% block content %}
+<div class="row" style="margin-top:70px;">
+    <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2">
+        <h1>Login</h1>
+        <hr/>
+        {% if message %}
+        <div class="alert alert-danger">
+            {{message}}
+        </div>
+        {% endif %}
+        <form method="post" class="post-form" role="form">
+            <div class="form-group">
+                {% csrf_token %}
+                Username: <input autofocus="" id="id_username" maxlength="254" name="username" class="form-control"
+                                 type="text" required=""> <br/>
+                Password: <input id="id_password" name="password" type="password" required="" class="form-control"><br/>
+                <button type="submit" class="btn btn-default">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,15 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 
-class Blog(models.Model):
-    Name = models.CharField(max_length=100)
-
-
 class Post(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100, default="none")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    short_description = models.CharField(max_length=50)
     text = models.TextField()
     passwd = models.CharField(max_length=10)
 

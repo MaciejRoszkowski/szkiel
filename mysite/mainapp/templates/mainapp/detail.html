@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h2>{{blog.Name}}</h2>
+<h2>{{post.author.email}}</h2>
 {% load static %}
 <img src="{% static "main/debil.jpg" %}" width="300" height="400" alt="My image"/>
 {% if post %}
