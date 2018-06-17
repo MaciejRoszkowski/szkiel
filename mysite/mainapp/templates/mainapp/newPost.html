@@ -1,0 +1,29 @@
+{% extends 'mainapp/base.html' %}
+
+
+{% block content %}
+<div class="row" style="margin-top:70px;">
+    <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2">
+        <h1>New Post</h1>
+        <hr/>
+        {% if message %}
+        <div class="alert alert-danger">
+            {{message}}
+        </div>
+        {% endif %}
+        {% csrf_token %}
+        <form method="post" class="post-form" role="form" enctype='multipart/form-data'>
+            <div class="form-group">
+                {% csrf_token %}
+                Title: <input autofocus="" id="id_title" maxlength="254" name="title" class="form-control"
+                                 type="text" required=""> <br/>
+                Short Description: <input id="id_short_description" name="short_description" type="text" required="" class="form-control"><br/>
+                Text: <textarea type="text" name="text" maxlength="10000" class="form-control" required="" id="id_text"  ></textarea>
+                Password: <input id="id_isProtected" name="isProtected" type="checkbox" class="form-control"><br/>
+                Image:<input id="id_postImage" name="postImage" type="file" class="form-control" ><br/>
+                <button type="submit" class="btn btn-default">Post</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

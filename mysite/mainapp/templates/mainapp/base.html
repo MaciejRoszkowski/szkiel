@@ -1,32 +1,64 @@
 {% load staticfiles %}
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="{% static 'css/clean-blog.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="{% static 'js/clean-blog.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+</head>
 <body>
-<p>
-<h1> to jest base strony o blagach. Jest bardzo fajny </h1>
-<a href = "/">home</a>
 
-{% if user.is_authenticated %}
-<li>
-    Welcome, {{ user.username }} </a>
-</li>
-<li>
-    <a href="/logout">logout</a>
-</li>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Blog</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/">Home</a></li>
+    </ul>
+    <form method="get" action="/search/" class="navbar-form navbar-left">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="search" id="id_search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+      {% if not user.is_authenticated %}
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    </ul>
+      {% endif %}
+      {% if user.is_authenticated %}
 
-{% endif %}
-{% if not user.is_authenticated %}
-<li>
-    <a href="/login">Login</a>
-</li>
-<li>
-    <a href="/register">Register</a>
-</li>
-{% endif %}
-</p>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a ><span class="glyphicon glyphicon-user"></span> {{user.username}}</a></li>
+      <li><a href="/newpost"><span class="glyphicon glyphicon-plus"></span> New Post</a></li>
+      <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+    </ul>
+
+      {% endif %}
+  </div>
+</nav>
 {% block content %}
 {% endblock %}
 </body>
-<head>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-</head>
+

@@ -1,15 +1,49 @@
 {% extends 'mainapp/base.html' %}
 
 {% block content %}
-To jst lista naszych najlepszych postow
-{% if latest_post_list %}
-<div class="list-group">
-    {% for post in latest_post_list %}
-        <a class="list-group-item">{{ post.title}}</a>
-    {% endfor %}
+
+
+    <header class="masthead" style="background-image: url('../../static/main/home-bg.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+              <h1>Blog</h1>
+              <span class="subheading"> Maciej Roszkowski </span>
+              <span class="subheading"> Karol Grygorczuk  </span>
+              <span class="subheading"> Dawid Korolczuk </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for post in latest_post_list %}
+            <div class="post-preview">
+                <a href="/mainapp/{{post.id}}/">
+                    <h2 class="post-title">
+                        {{post.title}}
+                    </h2>
+                    <h3 class="post-subtitle">
+                        {{post.short_description}}
+                    </h3>
+                </a>
+
+                <p class="post-meta">Posted by{{post.user.username}}</a> on {{post.postDate}}</p>
+            </div>
+            <hr>
+            {% endfor %}
+
+            <!-- Pager -->
+
+        </div>
+
+    </div>
 </div>
-{% else %}
-    <p>No post are available.</p>
-{% endif %}
+
 {% endblock %}
 

@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
+from .models import Post, Comment
+
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
@@ -31,3 +33,18 @@ class LoginForm(forms.Form):
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         return user
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('author', 'text')
+
+
+class NewPostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'short_description', 'text', 'isProtected', 'postImage')
+
+class SearchForm(forms.Form):
+    search_box = forms.CharField(max_length=100)

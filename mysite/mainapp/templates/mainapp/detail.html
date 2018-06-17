@@ -2,23 +2,91 @@
 
 
 {% block content %}
-
-<h2>{{post.author.email}}</h2>
 {% load static %}
-<img src="{% static "main/debil.jpg" %}" width="300" height="400" alt="My image"/>
-{% if post %}
-    <ul>
-    {% for po in post %}
-        <div class="panel panel-primary">
-            <div class="panel-heading">{{po.title}}</div>
-             <div class="panel-body">{{po.text}}</div>
+
+
+
+        {% for post in post %}
+        {%if not post.isProtected or user.is_authenticated%}
+
+    <header class="masthead" style="background-image: url('../../static/main/home-bg.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>{{post.title}}</h1>
+              <h2 class="subheading">{{post.short_description}}</h2>
+              <span class="meta">Posted by
+                  {{post.author}} on {{post.postDate}}
+              </span>
+            </div>
+          </div>
         </div>
+      </div>
+    </header>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {{post.text}}<br>
+            {%if post.postImage%}
+            <img src="{{post.postImage.url}}" class="img-responsive" >
+            {%endif%}
+            <a class="btn btn-default" href="/pdf/{{post.id }}">Generate PDF</a>
+
+            {%endif%}
+            {% if post.isProtected and not user.is_authenticated %}
+             protected
+            {%endif%}
+
+        </div>
+    </div>
+
+{% endfor %}
 
 
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No blogs are available.</p>
-{% endif %}
+<div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <h2>Comments:</h2>
+            {% for co in comment%}
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">{{co.author}}
+                    </h4>
+                    <small>{{co.commentDate}}</small><br>
 
+                    {{co.text}}
+                </div>
+            </div>
+            {% empty %}
+            <p>No comments </p>
+            {% endfor %}
+        </div>
+</div>
+
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="well">
+                <h4>Leave a Comment:</h4>
+                <form method="POST" class="post-form" role="form">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        {% if not user.is_authenticated %}
+                        Author: <input id="id_author" maxlength="20" class="form-control" name="author" type="text"
+                                       required/><br/>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                        Author: <input id="id_author" maxlength="20" readonly="readonly" class="form-control"
+                                       name="author" type="text" value="{{user.username}}"
+                                       required/>
+                        {% endif %}
+                        Text: <textarea id="id_text" maxlength="400" class="form-control" rows="3"
+                                        name="text" type="text" required></textarea>
+                    </div>
+                    <button type="submit" class="save btn btn-default">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
 {% endblock %}
