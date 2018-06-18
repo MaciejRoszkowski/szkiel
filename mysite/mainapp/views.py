@@ -7,6 +7,7 @@ from itertools import chain
 from django.conf import settings
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 
@@ -24,8 +25,13 @@ from reportlab.lib.units import inch
 def index(request):
     latest_post_list = Post.objects.order_by('-postDate')
     template = loader.get_template('mainapp/index.html')
+    paginator = Paginator(latest_post_list, 4)  # Show 25 contacts per page
+    page_request_var = "page"
+    page = request.GET.get(page_request_var)
+    latest_post_list= paginator.get_page(page)
     context = {
         'latest_post_list': latest_post_list,
+        #'page_request_var': page_request_var,
     }
     return HttpResponse(template.render(context, request))
 

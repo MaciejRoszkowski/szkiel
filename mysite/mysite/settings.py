@@ -25,7 +25,8 @@ SECRET_KEY = '78ecj2!mex+(z%&z*uh_%c+t&e)&ud9hpa)+94i&7m-ru!fg!3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['roszkowskimaciek.pythonanywhere.com',
+                 '127.0.0.1']
 
 
 # Application definition
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
@@ -119,6 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT='/home/roszkowskimaciek/szkiel/mysite/stattest/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
