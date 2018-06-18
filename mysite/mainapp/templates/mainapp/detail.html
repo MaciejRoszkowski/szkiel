@@ -34,15 +34,12 @@
             {%endif%}
             <a class="btn btn-default" href="/pdf/{{post.id }}">Generate PDF</a>
 
-            {%endif%}
-            {% if post.isProtected and not user.is_authenticated %}
-             protected
-            {%endif%}
+
+
 
         </div>
     </div>
 
-{% endfor %}
 
 
 <div class="row">
@@ -89,4 +86,12 @@
         </div>
     </div>
     </div>
+            {%endif%}
+
+
+            {% if post.isProtected and not user.is_authenticated %}
+             protected
+            {%endif%}
+{% endfor %}
+
 {% endblock %}
